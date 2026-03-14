@@ -1,0 +1,73 @@
+name: Build Flutter APK & Web
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*' # Déclenche l'action si on pousse un tag qui commence par "v" (ex: v1.0.0)
+  pull_request:
+    branches:
+      - main
+
+# Permission requise par GitHub Actions pour créer une Release sur le dépôt
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build & Release Draft
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Build Web
+        run: flutter build web --release
+
+      # Créer un fichier zip du build web car les releases GitHub n'acceptent que des fichiers
+      - name: Zip Web Build
+        run: cd build/web && zip -r ../../web-build.zip .
+
+      # Conserver les artefacts standards pour les push classiques ou les PR
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Upload Web Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          path: build/web/
+
+      # --- Étape de création de la Release ---
+      # Cette étape ne s'exécute QUE si le déclencheur est un Tag
+      - name: Create Release Draft
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          draft: true # Définit la release en tant que brouillon (draft)
+          generate_release_notes: true # Auto-génère le changelog à partir des PR et commits
+          files: |
+            build/app/outputs/flutter-apk/app-release.apk
+            web-build.zip

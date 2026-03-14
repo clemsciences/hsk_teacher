@@ -1,0 +1,74 @@
+{
+  "@@locale": "en",
+  "appTitle": "HSK Teacher",
+  "chooseLevel": "Choose a level",
+  "hskLevel": "HSK Level {level}",
+  "@hskLevel": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "randomWord": "Random word",
+  "anotherRandomWord": "Another random word",
+  "copyLink": "Copy link",
+  "linkCopied": "Link copied to clipboard!",
+  "home": "Home",
+  "character": "Character",
+  "pinyin": "Pinyin",
+  "meanings": "Meanings",
+  "pageOf": "Page {page} of {total}",
+  "@pageOf": {
+    "placeholders": {
+      "page": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "loadingLevel": "Loading HSK Level {level}...",
+  "@loadingLevel": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "error": "Error: {message}",
+  "@error": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "noDataFound": "No data found",
+  "wordDetail": "Word detail: {hanzi}",
+  "@wordDetail": {
+    "placeholders": {
+      "hanzi": {
+        "type": "String"
+      }
+    }
+  },
+  "back": "Back",
+  "errorTitle": "Oops!",
+  "errorMessage": "An error occurred.",
+  "goHome": "Go back home",
+  "markAsLearned": "Mark as learned",
+  "learned": "Learned",
+  "clearHistory": "Clear history",
+  "historyCleared": "History cleared",
+  "visited": "Visited",
+  "resumeLastSession": "Resume where you left off: {path}",
+  "@resumeLastSession": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  }
+}
