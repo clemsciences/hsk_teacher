@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'l10n/app_localizations.dart';
-import 'word_detail_content.dart';
-import 'theme.dart';
-import 'app.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hsk_teacher/app.dart';
+import 'package:hsk_teacher/l10n/app_localizations.dart';
+import 'package:hsk_teacher/word_detail_content.dart';
 
 class WordDetailPage extends StatefulWidget {
   final int level;
@@ -86,7 +86,9 @@ class _WordDetailPageState extends State<WordDetailPage> {
   }
 
   Future<Map<String, String?>> _loadWordData() async {
-    if (widget.hanzi != null && widget.pinyin != null && widget.meanings != null) {
+    if (widget.hanzi != null &&
+        widget.pinyin != null &&
+        widget.meanings != null) {
       return {
         'hanzi': widget.hanzi,
         'pinyin': widget.pinyin,
@@ -95,8 +97,9 @@ class _WordDetailPageState extends State<WordDetailPage> {
     }
 
     try {
-      final String metadataResponse = await rootBundle
-          .loadString('assets/data/levels/level_${widget.level}/metadata.json');
+      final String metadataResponse = await rootBundle.loadString(
+        'assets/data/levels/level_${widget.level}/metadata.json',
+      );
       final metadata = json.decode(metadataResponse);
       final int chunkSize = metadata['chunk_size'];
 
@@ -104,7 +107,8 @@ class _WordDetailPageState extends State<WordDetailPage> {
       final int localIndex = widget.index % chunkSize;
 
       final String response = await rootBundle.loadString(
-          'assets/data/levels/level_${widget.level}/chunk_$chunkIndex.json');
+        'assets/data/levels/level_${widget.level}/chunk_$chunkIndex.json',
+      );
       final List data = json.decode(response);
 
       if (localIndex < data.length) {
@@ -137,56 +141,60 @@ class _WordDetailPageState extends State<WordDetailPage> {
           final pinyin = snapshot.data?['pinyin'] ?? widget.pinyin;
           final meanings = snapshot.data?['meanings'] ?? widget.meanings;
 
-          return Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 600),
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(32.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        WordDetailContent(
-                          level: widget.level,
-                          hanzi: hanzi,
-                          pinyin: pinyin,
-                          meanings: meanings,
-                          isLoading: snapshot.connectionState == ConnectionState.waiting,
-                        ),
-                        const SizedBox(height: 24),
-                        if (hanzi.isNotEmpty)
-                          SwitchListTile(
-                            title: Text(l10n.markAsLearned),
-                            subtitle: _isLearned ? Text(l10n.learned) : null,
-                            value: _isLearned,
-                            onChanged: (value) => _toggleLearned(hanzi),
+          return SingleChildScrollView(
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 600),
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Card(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(32.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          WordDetailContent(
+                            level: widget.level,
+                            hanzi: hanzi,
+                            pinyin: pinyin,
+                            meanings: meanings,
+                            isLoading:
+                                snapshot.connectionState ==
+                                ConnectionState.waiting,
                           ),
-                        const SizedBox(height: 48),
-                        ElevatedButton.icon(
-                          onPressed: () {
-                            if (context.canPop()) {
-                              context.pop();
-                            } else {
-                              // If we can't pop, we try to go back to the words list for this level
-                              context.go('/level/${widget.level}/page/0');
-                            }
-                          },
-                          icon: const Icon(Icons.arrow_back),
-                          label: Text(l10n.back),
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 32,
-                              vertical: 16,
+                          const SizedBox(height: 24),
+                          if (hanzi.isNotEmpty)
+                            SwitchListTile(
+                              title: Text(l10n.markAsLearned),
+                              subtitle: _isLearned ? Text(l10n.learned) : null,
+                              value: _isLearned,
+                              onChanged: (value) => _toggleLearned(hanzi),
+                            ),
+                          const SizedBox(height: 24),
+                          ElevatedButton.icon(
+                            onPressed: () {
+                              if (context.canPop()) {
+                                context.pop();
+                              } else {
+                                // If we can't pop, we try to go back to the words list for this level
+                                context.go('/level/${widget.level}/page/0');
+                              }
+                            },
+                            icon: const Icon(Icons.arrow_back),
+                            label: Text(l10n.back),
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 32,
+                                vertical: 16,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

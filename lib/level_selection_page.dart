@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'dart:math';
 import 'dart:convert';
+import 'dart:math';
+
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'l10n/app_localizations.dart';
-import 'word_detail_content.dart';
-import 'theme.dart';
-import 'app.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hsk_teacher/app.dart';
+import 'package:hsk_teacher/l10n/app_localizations.dart';
+import 'package:hsk_teacher/theme.dart';
+import 'package:hsk_teacher/word_detail_content.dart';
 
 class LevelSelectionPage extends StatefulWidget {
   const LevelSelectionPage({super.key});
@@ -35,15 +36,17 @@ class _LevelSelectionPageState extends State<LevelSelectionPage> {
     final selectedLevel = level ?? (random.nextInt(6) + 1);
 
     try {
-      final String metadataResponse = await rootBundle
-          .loadString('assets/data/levels/level_$selectedLevel/metadata.json');
+      final String metadataResponse = await rootBundle.loadString(
+        'assets/data/levels/level_$selectedLevel/metadata.json',
+      );
       final metadata = json.decode(metadataResponse);
       final int totalChunks = metadata['total_chunks'];
       final int chunkSize = metadata['chunk_size'];
 
       final int randomChunk = random.nextInt(totalChunks);
       final String chunkResponse = await rootBundle.loadString(
-          'assets/data/levels/level_$selectedLevel/chunk_$randomChunk.json');
+        'assets/data/levels/level_$selectedLevel/chunk_$randomChunk.json',
+      );
       final List data = json.decode(chunkResponse);
 
       if (data.isNotEmpty) {
@@ -72,7 +75,8 @@ class _LevelSelectionPageState extends State<LevelSelectionPage> {
 
   void _copyWordLink() {
     if (_randomWordGlobalIndex != null && _randomWordLevel != null) {
-      final String fullUrl = "${Uri.base.origin}/level/$_randomWordLevel/word/$_randomWordGlobalIndex";
+      final String fullUrl =
+          "${Uri.base.origin}/level/$_randomWordLevel/word/$_randomWordGlobalIndex";
 
       Clipboard.setData(ClipboardData(text: fullUrl)).then((_) {
         if (mounted) {
@@ -182,20 +186,31 @@ class _LevelSelectionPageState extends State<LevelSelectionPage> {
               const SizedBox(height: 20),
               if (lastPath != null && lastPath != '/')
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
                   child: InkWell(
                     onTap: () => context.go(lastPath),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
                       decoration: BoxDecoration(
                         color: AppTheme.primaryColor.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: AppTheme.primaryColor.withOpacity(0.3)),
+                        border: Border.all(
+                          color: AppTheme.primaryColor.withOpacity(0.3),
+                        ),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(Icons.restore, color: AppTheme.primaryColor),
+                          const Icon(
+                            Icons.restore,
+                            color: AppTheme.primaryColor,
+                          ),
                           const SizedBox(width: 12),
                           Flexible(
                             child: Text(
@@ -214,25 +229,44 @@ class _LevelSelectionPageState extends State<LevelSelectionPage> {
               if (lastLevel != null)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      OutlinedButton.icon(
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      final levelButton = OutlinedButton.icon(
                         onPressed: () => context.go('/level/$lastLevel/page/0'),
                         icon: const Icon(Icons.history),
-                        label: Text('${l10n.hskLevel(lastLevel)} (Dernier visité)'),
-                      ),
-                      const SizedBox(width: 16),
-                      OutlinedButton.icon(
+                        label: Text(
+                          '${l10n.hskLevel(lastLevel)} (Dernier visité)',
+                        ),
+                      );
+                      final clearButton = OutlinedButton.icon(
                         onPressed: _clearHistory,
                         icon: const Icon(Icons.delete_sweep),
                         label: Text(l10n.clearHistory),
-                      ),
-                    ],
+                      );
+
+                      if (constraints.maxWidth < 600) {
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            levelButton,
+                            const SizedBox(height: 12),
+                            clearButton,
+                          ],
+                        );
+                      }
+
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          levelButton,
+                          const SizedBox(width: 16),
+                          clearButton,
+                        ],
+                      );
+                    },
                   ),
                 ),
-              if (_randomWord != null)
-                _makeRandomWordCard(),
+              if (_randomWord != null) _makeRandomWordCard(),
               const SizedBox(height: 40),
               Wrap(
                 alignment: WrapAlignment.center,
@@ -250,14 +284,20 @@ class _LevelSelectionPageState extends State<LevelSelectionPage> {
                       height: 150,
                       decoration: BoxDecoration(
                         color: AppTheme.secondaryColorLight,
-                        border: Border.all(color: AppTheme.secondaryColor, width: 2),
+                        border: Border.all(
+                          color: AppTheme.secondaryColor,
+                          width: 2,
+                        ),
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(Icons.menu_book,
-                              size: 50, color: AppTheme.secondaryColor),
+                          const Icon(
+                            Icons.menu_book,
+                            size: 50,
+                            color: AppTheme.secondaryColor,
+                          ),
                           const SizedBox(height: 10),
                           Text(
                             'HSK $level',
