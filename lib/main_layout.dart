@@ -33,7 +33,9 @@ class MainLayout extends StatelessWidget {
             ),
         ],
       ),
-      body: child,
+      // Edge-to-edge is enabled by default on recent Android; without SafeArea
+      // the body extends behind the system navigation bar and gets clipped.
+      body: SafeArea(child: child),
     );
   }
 }

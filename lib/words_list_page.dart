@@ -242,6 +242,15 @@ class _WordsListPageState extends State<WordsListPage> {
         builder: (context, constraints) {
           bool isWide = constraints.maxWidth > 800;
 
+          // On mobile a fixed 300px meanings column makes the table wider than
+          // the screen, clipping text on the right. Size it to the available
+          // width (text then wraps onto several lines) and tighten spacing.
+          final double columnSpacing = isWide ? 56 : 18;
+          final double horizontalMargin = isWide ? 24 : 10;
+          final double meaningsWidth = isWide
+              ? 300
+              : (constraints.maxWidth - 170).clamp(130.0, 300.0);
+
           Widget tableContent = FutureBuilder<List<Map<String, dynamic>>>(
             future: _hskDataFuture,
             builder: (context, snapshot) {
@@ -265,9 +274,13 @@ class _WordsListPageState extends State<WordsListPage> {
               }
 
               final data = snapshot.data!;
-              return DataTable(
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: DataTable(
                 dataRowMinHeight: 48,
                 dataRowMaxHeight: double.infinity,
+                columnSpacing: columnSpacing,
+                horizontalMargin: horizontalMargin,
                 showCheckboxColumn: false,
                 columns: <DataColumn>[
                   DataColumn(label: Text(l10n.character)),
@@ -341,7 +354,7 @@ class _WordsListPageState extends State<WordsListPage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: SizedBox(
-                            width: 300,
+                            width: meaningsWidth,
                             child: SelectableText(item['meanings'] ?? ''),
                           ),
                         ),
@@ -349,6 +362,7 @@ class _WordsListPageState extends State<WordsListPage> {
                     ],
                   );
                 }).toList(),
+                ),
               );
             },
           );
