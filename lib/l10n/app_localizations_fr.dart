@@ -97,4 +97,68 @@ class AppLocalizationsFr extends AppLocalizations {
   String resumeLastSession(String path) {
     return 'Reprendre là où vous vous étiez arrêté : $path';
   }
+
+  @override
+  String get quizTitle => 'Quiz';
+
+  @override
+  String get startQuiz => 'Démarrer le quiz';
+
+  @override
+  String get numberOfQuestions => 'Nombre de questions';
+
+  @override
+  String get selectLevel => 'Niveau';
+
+  @override
+  String get allLevels => 'Tous les niveaux';
+
+  @override
+  String get quizType => 'Type de quiz';
+
+  @override
+  String get quizTypePinyinToHanzi => 'Pinyin → Caractère';
+
+  @override
+  String get quizTypeHanziToPinyin => 'Caractère → Pinyin';
+
+  @override
+  String get quizTypeHanziToMeaning => 'Caractère → Signification';
+
+  @override
+  String get quizGenerating => 'Génération du quiz...';
+
+  @override
+  String quizQuestionProgress(int current, int total) {
+    return 'Question $current sur $total';
+  }
+
+  @override
+  String get quizFindHanziForPinyin =>
+      'Quel caractère correspond à ce pinyin ?';
+
+  @override
+  String get quizFindPinyinForHanzi =>
+      'Quel pinyin correspond à ce caractère ?';
+
+  @override
+  String get quizFindMeaningForHanzi =>
+      'Quelle signification correspond à ce caractère ?';
+
+  @override
+  String get nextQuestion => 'Suivant';
+
+  @override
+  String get quizSeeResults => 'Voir les résultats';
+
+  @override
+  String get quizFinished => 'Quiz terminé !';
+
+  @override
+  String quizScore(int score, int total) {
+    return 'Votre score : $score / $total';
+  }
+
+  @override
+  String get restartQuiz => 'Recommencer';
 }

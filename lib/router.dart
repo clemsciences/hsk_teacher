@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'level_selection_page.dart';
 import 'words_list_page.dart';
 import 'word_detail_page.dart';
+import 'quiz_page.dart';
 import 'error_page.dart';
 import 'main_layout.dart';
 import 'l10n/app_localizations.dart';
@@ -35,6 +36,8 @@ class AppRouter {
           if (name == '/') {
             title = '${l10n.appTitle} - ${l10n.chooseLevel}';
             showHomeButton = false;
+          } else if (name == '/quiz') {
+            title = '${l10n.appTitle} - ${l10n.quizTitle}';
           } else if (name == '/level/:level/page/:page') {
             final level = state.pathParameters['level'];
             title = l10n.hskLevel(int.tryParse(level ?? '') ?? 0);
@@ -57,6 +60,11 @@ class AppRouter {
             path: '/',
             name: 'home',
             builder: (context, state) => const LevelSelectionPage(),
+          ),
+          GoRoute(
+            path: '/quiz',
+            name: 'quiz',
+            builder: (context, state) => const QuizPage(),
           ),
           GoRoute(
             path: '/level/:level/page/:page',

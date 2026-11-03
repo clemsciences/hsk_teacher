@@ -32,5 +32,44 @@
         "type": "String"
       }
     }
-  }
+  },
+  "quizTitle": "Quiz",
+  "startQuiz": "Démarrer le quiz",
+  "numberOfQuestions": "Nombre de questions",
+  "selectLevel": "Niveau",
+  "allLevels": "Tous les niveaux",
+  "quizType": "Type de quiz",
+  "quizTypePinyinToHanzi": "Pinyin → Caractère",
+  "quizTypeHanziToPinyin": "Caractère → Pinyin",
+  "quizTypeHanziToMeaning": "Caractère → Signification",
+  "quizGenerating": "Génération du quiz...",
+  "quizQuestionProgress": "Question {current} sur {total}",
+  "@quizQuestionProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "quizFindHanziForPinyin": "Quel caractère correspond à ce pinyin ?",
+  "quizFindPinyinForHanzi": "Quel pinyin correspond à ce caractère ?",
+  "quizFindMeaningForHanzi": "Quelle signification correspond à ce caractère ?",
+  "nextQuestion": "Suivant",
+  "quizSeeResults": "Voir les résultats",
+  "quizFinished": "Quiz terminé !",
+  "quizScore": "Votre score : {score} / {total}",
+  "@quizScore": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "restartQuiz": "Recommencer"
 }

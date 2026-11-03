@@ -253,6 +253,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Resume where you left off: {path}'**
   String resumeLastSession(String path);
+
+  /// No description provided for @quizTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz'**
+  String get quizTitle;
+
+  /// No description provided for @startQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Start quiz'**
+  String get startQuiz;
+
+  /// No description provided for @numberOfQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of questions'**
+  String get numberOfQuestions;
+
+  /// No description provided for @selectLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Level'**
+  String get selectLevel;
+
+  /// No description provided for @allLevels.
+  ///
+  /// In en, this message translates to:
+  /// **'All levels'**
+  String get allLevels;
+
+  /// No description provided for @quizType.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz type'**
+  String get quizType;
+
+  /// No description provided for @quizTypePinyinToHanzi.
+  ///
+  /// In en, this message translates to:
+  /// **'Pinyin → Character'**
+  String get quizTypePinyinToHanzi;
+
+  /// No description provided for @quizTypeHanziToPinyin.
+  ///
+  /// In en, this message translates to:
+  /// **'Character → Pinyin'**
+  String get quizTypeHanziToPinyin;
+
+  /// No description provided for @quizTypeHanziToMeaning.
+  ///
+  /// In en, this message translates to:
+  /// **'Character → Meaning'**
+  String get quizTypeHanziToMeaning;
+
+  /// No description provided for @quizGenerating.
+  ///
+  /// In en, this message translates to:
+  /// **'Generating quiz...'**
+  String get quizGenerating;
+
+  /// No description provided for @quizQuestionProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String quizQuestionProgress(int current, int total);
+
+  /// No description provided for @quizFindHanziForPinyin.
+  ///
+  /// In en, this message translates to:
+  /// **'Which character matches this pinyin?'**
+  String get quizFindHanziForPinyin;
+
+  /// No description provided for @quizFindPinyinForHanzi.
+  ///
+  /// In en, this message translates to:
+  /// **'Which pinyin matches this character?'**
+  String get quizFindPinyinForHanzi;
+
+  /// No description provided for @quizFindMeaningForHanzi.
+  ///
+  /// In en, this message translates to:
+  /// **'Which meaning matches this character?'**
+  String get quizFindMeaningForHanzi;
+
+  /// No description provided for @nextQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get nextQuestion;
+
+  /// No description provided for @quizSeeResults.
+  ///
+  /// In en, this message translates to:
+  /// **'See results'**
+  String get quizSeeResults;
+
+  /// No description provided for @quizFinished.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz finished!'**
+  String get quizFinished;
+
+  /// No description provided for @quizScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Your score: {score} / {total}'**
+  String quizScore(int score, int total);
+
+  /// No description provided for @restartQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart'**
+  String get restartQuiz;
 }
 
 class _AppLocalizationsDelegate

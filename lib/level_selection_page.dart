@@ -267,6 +267,20 @@ class _LevelSelectionPageState extends State<LevelSelectionPage> {
                   ),
                 ),
               if (_randomWord != null) _makeRandomWordCard(),
+              const SizedBox(height: 20),
+              ElevatedButton.icon(
+                onPressed: () => context.go('/quiz'),
+                icon: const Icon(Icons.quiz),
+                label: Text(l10n.startQuiz),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppTheme.primaryColor,
+                  foregroundColor: AppTheme.white,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 16,
+                  ),
+                ),
+              ),
               const SizedBox(height: 40),
               Wrap(
                 alignment: WrapAlignment.center,

@@ -97,4 +97,65 @@ class AppLocalizationsEn extends AppLocalizations {
   String resumeLastSession(String path) {
     return 'Resume where you left off: $path';
   }
+
+  @override
+  String get quizTitle => 'Quiz';
+
+  @override
+  String get startQuiz => 'Start quiz';
+
+  @override
+  String get numberOfQuestions => 'Number of questions';
+
+  @override
+  String get selectLevel => 'Level';
+
+  @override
+  String get allLevels => 'All levels';
+
+  @override
+  String get quizType => 'Quiz type';
+
+  @override
+  String get quizTypePinyinToHanzi => 'Pinyin → Character';
+
+  @override
+  String get quizTypeHanziToPinyin => 'Character → Pinyin';
+
+  @override
+  String get quizTypeHanziToMeaning => 'Character → Meaning';
+
+  @override
+  String get quizGenerating => 'Generating quiz...';
+
+  @override
+  String quizQuestionProgress(int current, int total) {
+    return 'Question $current of $total';
+  }
+
+  @override
+  String get quizFindHanziForPinyin => 'Which character matches this pinyin?';
+
+  @override
+  String get quizFindPinyinForHanzi => 'Which pinyin matches this character?';
+
+  @override
+  String get quizFindMeaningForHanzi => 'Which meaning matches this character?';
+
+  @override
+  String get nextQuestion => 'Next';
+
+  @override
+  String get quizSeeResults => 'See results';
+
+  @override
+  String get quizFinished => 'Quiz finished!';
+
+  @override
+  String quizScore(int score, int total) {
+    return 'Your score: $score / $total';
+  }
+
+  @override
+  String get restartQuiz => 'Restart';
 }
